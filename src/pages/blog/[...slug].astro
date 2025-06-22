@@ -3,27 +3,37 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import BlogPost from "../../layouts/BlogPost.astro";
 import { cms } from "../../lib/cms";
 
-const { slug } = Astro.params;
+const slugParam = Astro.params.slug;
+if (!slugParam) throw new Error("Slug is required");
 
-if (!slug) {
-  throw new Error("Slug is required");
+const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
+
+let post;
+
+try {
+  post = await cms.posts.get({ slug });
+} catch (err) {
+  console.error("❌ Failed to fetch post:", err);
+  post = null;
 }
-
-const post = await cms.posts.get({ slug });
 ---
 
-<BlogPost {...post.data}>
-  <div class="prose mx-auto m-4 p-4">
-    <img
-      class="max-w-full"
-      width="700"
-      src={post.data.cover_image}
-      alt={post.data.title}
-    />
-    <h1 class="text-3xl font-medium">{post.data.title}</h1>
-    <p>
-      <FormattedDate date={new Date(post.data.published_at)} />
-    </p>
-    <div set:html={post.data.html_content} />
-  </div>
-</BlogPost>
+{post ? (
+  <BlogPost {...post.data}>
+    <div class="prose mx-auto m-4 p-4">
+      {post.data.cover_image && (
+        <img
+          class="max-w-full"
+          width="700"
+          src={post.data.cover_image}
+          alt={post.data.title}
+        />
+      )}
+      <h1 class="text-3xl font-medium">{post.data.title}</h1>
+      <p><FormattedDate date={new Date(post.data.published_at)} /></p>
+      <div set:html={post.data.html_content} />
+    </div>
+  </BlogPost>
+) : (
+  <h1 class="text-center text-2xl mt-10 text-red-600">Post not found</h1>
+)}
