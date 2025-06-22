@@ -1,5 +1,6 @@
 ---
 import FormattedDate from "../../components/FormattedDate.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 import { cms } from "../../lib/cms";
 
 const { slug } = Astro.params;
@@ -11,16 +12,18 @@ if (!slug) {
 const post = await cms.posts.get({ slug });
 ---
 
-<div class="prose mx-auto m-4 p-4">
-  <img
-    class="max-w-full"
-    width="700"
-    src={post.data.cover_image}
-    alt={post.data.title}
-  />
-  <h1>{post.data.title}</h1>
-  <p>
-    <FormattedDate date={new Date(post.data.published_at)} />
-  </p>
-  <div set:html={post.data.html_content} />
-</div>
+<BlogPost {...post.data}>
+  <div class="prose mx-auto m-4 p-4">
+    <img
+      class="max-w-full"
+      width="700"
+      src={post.data.cover_image}
+      alt={post.data.title}
+    />
+    <h1 class="text-3xl font-medium">{post.data.title}</h1>
+    <p>
+      <FormattedDate date={new Date(post.data.published_at)} />
+    </p>
+    <div set:html={post.data.html_content} />
+  </div>
+</BlogPost>
