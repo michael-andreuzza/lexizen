@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const {
+  title = "Untitled Post",
+  description = "Read more on our blog",
+  image = "/blog-placeholder-1.jpg",
+} = Astro.props;
+---
+<BaseLayout {title} {description} {image}>
+  <article class="prose mx-auto">
+    <slot />
+  </article>
+</BaseLayout>

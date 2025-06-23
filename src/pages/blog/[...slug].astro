@@ -1,6 +1,6 @@
 ---
 import FormattedDate from "@/components/blog/FormattedDate.astro";
-import BlogPost from "@/layouts/BlogPost.astro";
+import BlogLayout from "@/layouts/BlogLayout.astro";
 import { cms } from "@/lib/cms";
 
 const slugParam = Astro.params.slug;
@@ -20,7 +20,7 @@ try {
 
 {
   post ? (
-    <BlogPost {...post.data}>
+    <BlogLayout {...post.data}>
       <div class="prose mx-auto m-4 p-4">
         {post.data.cover_image && (
           <img
@@ -36,7 +36,7 @@ try {
         </p>
         <div set:html={post.data.html_content} />
       </div>
-    </BlogPost>
+    </BlogLayout>
   ) : (
     <h1 class="text-center text-2xl mt-10 text-red-600">Post not found</h1>
   )
