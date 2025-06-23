@@ -28,10 +28,11 @@ try {
   post ? (
     <BlogPost
       title={post.data.title}
-      description={post.data.excerpt ? post.data.excerpt : "No description available"}
+      description={
+        post.data.excerpt ? post.data.excerpt : "No description available"
+      }
       image={post.data.cover_image}
-/>
-
+    >
       <div>
         <Text tag="p" variant="textXS" class="text-base-500 font-mono">
           <FormattedDate date={new Date(post.data.published_at)} />
