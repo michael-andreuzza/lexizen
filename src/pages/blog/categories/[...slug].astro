@@ -8,17 +8,13 @@ import PostList from "@/components/blog/PostList.astro";
 // CMS
 import { cms } from "@/lib/cms";
 import { getMetaTitle, getMetaDescription } from "@/utils/meta";
-
 const { slug } = Astro.params;
 const { data: posts } = await cms.posts.list({ category: slug });
 const { data: categories } = await cms.categories.list();
 const currentCategory = categories?.find((c) => c.slug === slug);
-
 const title = getMetaTitle(currentCategory?.name);
 const description = getMetaDescription(`All posts in the “${currentCategory?.name?.toLowerCase()}” category`);
 ---
-
-
 <BaseHead title={title} description={description} />
 <section>
   <Wrapper variant="standard" class="py-24 lg:py-32">
