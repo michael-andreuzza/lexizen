@@ -1,6 +1,6 @@
 ---
 import FormattedDate from "@/components/blog/FormattedDate.astro";
-import BlogPost from "@/layouts/BlogPost.astro";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 import { createZenblogClient } from "zenblog";
 
@@ -17,16 +17,18 @@ if (!post) throw new Error(`Post not found: ${slug}`);
 
 <BlogPost title={post.data.title} description={post.data.excerpt}>
   <div class="prose mx-auto m-4 p-4">
-    {post.data.cover_image && (
-      <img
-        class="max-w-full"
-        width="700"
-        src={post.data.cover_image}
-        alt={post.data.title}
-      />
-    )}
+    {
+      post.data.cover_image && (
+        <img
+          class="max-w-full"
+          width="700"
+          src={post.data.cover_image}
+          alt={post.data.title}
+        />
+      )
+    }
     <h1 class="text-3xl font-medium">{post.data.title}</h1>
     <p><FormattedDate date={new Date(post.data.published_at)} /></p>
-    <div set:html={post.data.html_content}></div>
+    <div set:html={post.data.html_content} />
   </div>
 </BlogPost>
