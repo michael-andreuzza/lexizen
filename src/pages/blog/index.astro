@@ -15,8 +15,8 @@ const { data: categories } = await cms.categories.list();
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <Wrapper variant="standard" class="py-24 lg:py-32">
-    <section>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-32">
       <div>
         <Text tag="h1" variant="displaySM" class="font-medium text-base-900"
           >Blog</Text
@@ -28,7 +28,7 @@ const { data: categories } = await cms.categories.list();
           >A CMS blog for Zenblog by Lexington Themes</Text
         >
       </div>
-      <div class="flex gap-px flex-wrap mt-4 font-medium">
+      <div class="flex gap-4 flex-wrap mt-4">
         {
           categories?.map((category) => (
             <CategoryLink href={`/blog/categories/${category.slug}/`}>
@@ -88,6 +88,6 @@ const { data: categories } = await cms.categories.list();
           ))
         }
       </ul>
-    </section>
-  </Wrapper>
+    </Wrapper>
+  </section>
 </BaseLayout>

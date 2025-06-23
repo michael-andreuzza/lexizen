@@ -28,13 +28,17 @@ const description = getMetaDescription(
         variant="textXS"
         class="textXS font-mono text-base-500 capitalize"
       >
-        {currentCategory?.slug}</Text
+        <a href="/">home</a> / {currentCategory?.slug}</Text
       >
-      <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
+      <Text
+        tag="h1"
+        variant="displaySM"
+        class="font-medium text-base-900 mt-12"
+      >
         Blog
       </Text>
       <Text tag="p" variant="textBase" class="font-medium text-base-500">
-        {currentCategory?.name}
+        All posts in the {currentCategory?.name} category
       </Text>
       <PostList posts={posts} />
     </Wrapper>
