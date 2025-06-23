@@ -23,11 +23,19 @@ try {
   post ? (
     <BlogLayout {...post.data}>
       <div>
-        <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
-          {post.data.title}
-        </Text>
-        <Text tag="p" variant="textBase" class="font-medium">
+        <Text
+          tag="p"
+          variant="textXS"
+          class="font-medium font-mono text-base-500"
+        >
           <FormattedDate date={new Date(post.data.published_at)} />
+        </Text>
+        <Text
+          tag="h1"
+          variant="displaySM"
+          class="font-medium text-base-900 mt-4"
+        >
+          {post.data.title}
         </Text>
         {post.data.cover_image && (
           <img
@@ -38,7 +46,11 @@ try {
             class="aspect-12/6 mt-4"
           />
         )}
-        <Wrapper variant="prose" set:html={post.data.html_content} />
+        <Wrapper
+          variant="prose"
+          class="mt-12"
+          set:html={post.data.html_content}
+        />
       </div>
     </BlogLayout>
   ) : (

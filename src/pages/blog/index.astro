@@ -1,9 +1,10 @@
 ---
 // Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // CMS
 import { cms } from "@/lib/cms";
-// Layout
-import BaseLayout from "@/layouts/BaseLayout.astro";
 // Components
 import CategoryLink from "@/components/blog/CategoryLink.astro";
 // Constants
@@ -14,13 +15,21 @@ const { data: categories } = await cms.categories.list();
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
-  <main class="max-w-7xl mx-auto my-12 px-2">
-    <section class="mb-12">
-      <div class="px-4">
-        <h1 class="font-medium text-lg text-orange-500">Blog</h1>
-        <p class="text-3xl font-medium">A blog about animals</p>
+  <Wrapper variant="standard" class="py-24 lg:py-32">
+    <section>
+      <div>
+        <Text
+          tag="h1"
+          variant="displaySM"
+          class="font-medium text-base-900 mt-4">Blog</Text
+        >
+        <Text
+          tag="p"
+          variant="textXS"
+          class="font-medium font-mono text-base-500">A blog about animals</Text
+        >
       </div>
-      <div class="flex gap-px mt-4 font-medium">
+      <div class="flex gap-px flex-wrap mt-4 font-medium">
         {
           categories?.map((category) => (
             <CategoryLink href={`/blog/categories/${category.slug}/`}>
@@ -29,9 +38,8 @@ const { data: categories } = await cms.categories.list();
           ))
         }
       </div>
-    </section>
-    <section>
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+      <ul class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
         {
           posts?.map((post) => (
             <li>
@@ -42,26 +50,39 @@ const { data: categories } = await cms.categories.list();
                     height={360}
                     src={post.cover_image}
                     alt={post.title}
-                    class="rounded-2xl w-full max-h-[240px] object-cover aspect-[2/1]"
+                    class="rounded-xl w-full  object-cover aspect-12/6"
                   />
                 ) : (
-                  <div class="h-[360px] bg-slate-300 rounded-xl" />
+                  <div class="h-[360px] bg-base-50 rounded-xl" />
                 )}
-                <div class="my-2 space-y-2 px-2">
-                  <div>
-                    <time
-                      class="text-neutral-500 text-sm"
-                      datetime={post.published_at}
-                    >
+                <div class="space-y-2 px-2 mt-2">
+                  <Text
+                    tag="p"
+                    variant="textXS"
+                    class="font-medium font-mono text-base-500"
+                  >
+                    <time datetime={post.published_at}>
                       {new Date(post.published_at).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
                       })}
                     </time>
-                  </div>
-                  <h3 class="font-medium text-xl mt-4">{post.title}</h3>
-                  <p class="text-neutral-500 line-clamp-2">{post.excerpt}</p>
+                  </Text>
+                  <Text
+                    tag="h3"
+                    variant="textBase"
+                    class="font-medium text-base-900 mt-1"
+                  >
+                    {post.title}
+                  </Text>
+                  <Text
+                    tag="p"
+                    variant="textSM"
+                    class="text-base-500 line-clamp-2"
+                  >
+                    {post.excerpt}
+                  </Text>
                 </div>
               </a>
             </li>
@@ -69,5 +90,5 @@ const { data: categories } = await cms.categories.list();
         }
       </ul>
     </section>
-  </main>
+  </Wrapper>
 </BaseLayout>
