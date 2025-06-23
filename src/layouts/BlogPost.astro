@@ -3,14 +3,13 @@
 import BaseHead from "@/components/fundations/head/BaseHead.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// SEO
 const { title, description } = Astro.props;
 ---
-
 <BaseHead title={title} description={description} />
 <BaseLayout>
   <section>
     <Wrapper variant="standard" class="py-24 lg:py-32">
-     
       <slot />
     </Wrapper>
   </section>
