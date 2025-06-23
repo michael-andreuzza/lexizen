@@ -1,5 +1,6 @@
 ---
 // Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import BaseHead from "@/components/fundations/head/BaseHead.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
@@ -19,17 +20,23 @@ const description = getMetaDescription(
 ---
 
 <BaseHead title={title} description={description} />
-<section>
-  <Wrapper variant="standard" class="py-24 lg:py-32">
-    <Text tag="p" variant="textXS" class="textXS font-mono text-base-500">
-      {currentCategory?.slug}</Text
-    >
-    <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
-      Blog
-    </Text>
-    <Text tag="p" variant="textBase" class="font-medium text-base-500">
-      {currentCategory?.name}
-    </Text>
-    <PostList posts={posts} />
-  </Wrapper>
-</section>
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-32">
+      <Text
+        tag="p"
+        variant="textXS"
+        class="textXS font-mono text-base-500 capitalize"
+      >
+        {currentCategory?.slug}</Text
+      >
+      <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
+        Blog
+      </Text>
+      <Text tag="p" variant="textBase" class="font-medium text-base-500">
+        {currentCategory?.name}
+      </Text>
+      <PostList posts={posts} />
+    </Wrapper>
+  </section>
+</BaseLayout>
