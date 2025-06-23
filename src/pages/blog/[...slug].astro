@@ -1,62 +1,32 @@
 ---
-// Assets
-import { Image } from "astro:assets";
-// Fundations
-import Text from "@/components/fundations/elements/Text.astro";
-import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-// Components
-import BlogPost from "@/layouts/BlogPost.astro";
 import FormattedDate from "@/components/blog/FormattedDate.astro";
-// CMS
-import { cms } from "@/lib/cms";
+import BlogPost from "@/layouts/BlogPost.astro";
 
-const slugParam = Astro.params.slug;
-if (!slugParam) throw new Error("Slug is required");
+import { createZenblogClient } from "zenblog";
 
-const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
+const { slug } = Astro.params;
+const blogId = import.meta.env.PUBLIC_ZENBLOG_BLOG_ID;
 
-let post;
-try {
-  post = await cms.posts.get({ slug });
-} catch (err) {
-  console.error("❌ Failed to fetch post:", err);
-  post = null;
-}
+if (!slug) throw new Error("Slug is required");
+if (!blogId) throw new Error("Missing PUBLIC_ZENBLOG_BLOG_ID");
+
+const client = createZenblogClient({ blogId });
+const post = await client.posts.get({ slug });
+if (!post) throw new Error(`Post not found: ${slug}`);
 ---
 
-{
-  post ? (
-    <BlogPost
-      title={post.data.title}
-      description={
-        post.data.excerpt ? post.data.excerpt : "No description available"
-      }
-      image={post.data.cover_image}
-    >
-      <div>
-        <Text tag="p" variant="textXS" class="text-base-500 font-mono">
-          <FormattedDate date={new Date(post.data.published_at)} />
-        </Text>
-        <Text tag="h1" variant="displaySM" class="mt-4 text-base-900">
-          {post.data.title}
-        </Text>
-        {post.data.cover_image && (
-          <Image
-            height={9000}
-            width={700}
-            src={post.data.cover_image}
-            alt={post.data.title}
-            class="max-w-full mt-4"
-          />
-        )}
-        <Wrapper
-          variant="prose"
-          class="mt-24"
-          set:html={post.data.html_content}
-        />
-      </div>
-    </BlogPost>
-  ) : (
-    <h1 class="text-center text-2xl mt-10 text-red-600">Post not found</h1>
-  )
-}
+<BlogPost title={post.data.title} description={post.data.excerpt}>
+  <div class="prose mx-auto m-4 p-4">
+    {post.data.cover_image && (
+      <img
+        class="max-w-full"
+        width="700"
+        src={post.data.cover_image}
+        alt={post.data.title}
+      />
+    )}
+    <h1 class="text-3xl font-medium">{post.data.title}</h1>
+    <p><FormattedDate date={new Date(post.data.published_at)} /></p>
+    <div set:html={post.data.html_content}></div>
+  </div>
+</BlogPost>
