@@ -1,53 +1,14 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+// Fundatations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <main class="prose max-w-xl mx-auto my-12 text-lg">
-      <h1 class="font-medium">🧑‍🚀 Hello, Astronaut!</h1>
-      <p>
-        Welcome to the official <a href="https://zenblog.com">Zenblog</a> Astro template.
-        This template serves as a lightweight, minimally-styled starting point for
-        anyone looking to build a personal website, blog, or portfolio with Astro.
-      </p>
-      <h2 class="font-medium">Getting Started</h2>
-      <p>Follow this instructions to get your blog up and running:</p>
-      <ol>
-        <li>
-          Go to <a href="https://zenblog.com/">Zenblog.com</a> and create a free
-          account.
-        </li>
-        <li>Create a new blog and go to the blog settings.</li>
-        <li>
-          Copy the blog ID and paste it in the <code>.env</code> file like this:
-          <pre>
-// .env
-ZENBLOG_BLOG_ID=YOUR_BLOG_ID</pre>
-        </li>
-        <li>Publish your first blog post in the Zenblog dashboard.</li>
-        <li>
-          <b>That's it!</b> This template fetches the content and renders it. <br
-          />You can now customise your blog to your liking.
-        </li>
-      </ol>
-      <div class="flex justify-center">
-        <a
-          class="px-5 inline-block py-2 rounded-full bg-black text-white no-underline"
-          href="/blog"
-        >
-          Continue to the blog page
-        </a>
-      </div>
-    </main>
-    <Footer />
-  </body>
-</html>
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-32">
+      <Text tag="h1" variant="displaySM"> Welcome to Lexizen </Text>
+    </Wrapper>
+  </section>
+</BaseLayout>

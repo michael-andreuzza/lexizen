@@ -1,10 +1,10 @@
 ---
-import BaseHead from "../../components/BaseHead.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
-import { cms } from "../../lib/cms";
-import CategoryLink from "../../components/CategoryLink.astro";
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/global/Navigation.astro";
+import Footer from "@/components/global/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
+import { cms } from "@/lib/cms";
+import CategoryLink from "@/components/blog/CategoryLink.astro";
 
 const { data: posts } = await cms.posts.list();
 const { data: categories } = await cms.categories.list();
@@ -45,7 +45,7 @@ const { data: categories } = await cms.categories.list();
                       height={360}
                       src={post.cover_image}
                       alt={post.title}
-                      class="rounded-2xl w-full max-h-[240px] object-cover aspect-[2/1]"
+                      class="rounded-2xl w-full max-h-[240px] object-cover aspect-2/1"
                     />
                   ) : (
                     <div class="h-[360px] bg-slate-300 rounded-xl" />

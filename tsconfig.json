@@ -1,6 +1,25 @@
 {
+  // Inherit Astro's strict base config
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strictNullChecks": true
+    // Enable strict null checking for better type safety
+    "strictNullChecks": true,
+    // Enable top-level await and other modern ESM features
+    "target": "ESNext",
+    "module": "ESNext",
+    // Enable node-style module resolution for npm packages
+    "moduleResolution": "node",
+    // Allow importing `.json` files
+    "resolveJsonModule": true,
+    // Required for isolated transpilation (e.g., Astro components)
+    "isolatedModules": true,
+    // Prevent TypeScript from emitting compiled JS files (Astro handles it)
+    "noEmit": true,
+    // Set root for absolute imports
+    "baseUrl": ".",
+    // Create alias for cleaner imports
+    "paths": {
+      "@/*": ["src/*"]
+    }
   }
 }
