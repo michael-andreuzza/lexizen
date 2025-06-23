@@ -4,14 +4,13 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Button from "@/components/fundations/elements/Button.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-// Grids
-import BlogCardsGrid from "@/components/fundations/grids/BlogCardsGrid.astro";
+// Components
+import BlogCard from "@/components/blog/BlogCard.astro";
+
 // CMS
 import { cms } from "@/lib/cms";
 // Components
-import CategoryLink from "@/components/blog/CategoryLink.astro";
 const { data: posts } = await cms.posts.list();
-const { data: categories } = await cms.categories.list();
 ---
 
 <BaseLayout>
@@ -34,57 +33,12 @@ const { data: categories } = await cms.categories.list();
           class="w-fit lg:ml-auto">See all blog posts</Button
         >
       </div>
-
-      <BlogCardsGrid class="mt-4">
-        {
-          posts?.slice(0, 3).map((post) => (
-            <li>
-              <a href={`/blog/${post.slug}/`} class="block">
-                {post.cover_image ? (
-                  <img
-                    width={720}
-                    height={360}
-                    src={post.cover_image}
-                    alt={post.title}
-                    class="w-full object-cover aspect-12/6"
-                  />
-                ) : (
-                  <div class="h-[360px] bg-base-50" />
-                )}
-                <div class="mt-2">
-                  <Text
-                    tag="p"
-                    variant="textXS"
-                    class="font-medium font-mono text-base-500"
-                  >
-                    <time datetime={post.published_at}>
-                      {new Date(post.published_at).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </time>
-                  </Text>
-                  <Text
-                    tag="h3"
-                    variant="textBase"
-                    class="font-medium text-base-900 mt-4"
-                  >
-                    {post.title}
-                  </Text>
-                  <Text
-                    tag="p"
-                    variant="textSM"
-                    class="text-base-500 line-clamp-2 mt-1"
-                  >
-                    {post.excerpt}
-                  </Text>
-                </div>
-              </a>
-            </li>
-          ))
-        }
-      </BlogCardsGrid>
+      <ul
+        role="list"
+        class="grid grid-cols-1 md:grid-cols-3 gap-8 gap-y-24 mt-4 list-none"
+      >
+        {posts?.slice(0, 3).map((post) => <BlogCard post={post} />)}
+      </ul>
     </Wrapper>
   </section>
 </BaseLayout>

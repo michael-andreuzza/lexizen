@@ -7,6 +7,9 @@ interface Props {
 const { posts } = Astro.props;
 ---
 
-<ul class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+<ul
+  role="list"
+  class="grid grid-cols-1 md:grid-cols-3 gap-8 gap-y-24 mt-4 list-none"
+>
   {posts?.map((post) => <BlogCard post={post} />)}
 </ul>

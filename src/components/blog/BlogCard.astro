@@ -1,0 +1,54 @@
+---
+// src/components/blog/BlogCard.astro
+import Text from "@/components/fundations/elements/Text.astro";
+
+const { post } = Astro.props;
+---
+
+<li>
+  <article class="block">
+    <a href={`/blog/${post.slug}/`}>
+      {post.cover_image ? (
+        <img
+          width={720}
+          height={360}
+          src={post.cover_image}
+          alt={post.title}
+          class="w-full object-cover aspect-12/6"
+        />
+      ) : (
+        <div class="h-[360px] bg-base-50" />
+      )}
+    </a>
+    <header class="mt-2">
+      <Text
+        tag="p"
+        variant="textXS"
+        class="font-medium font-mono text-base-500"
+      >
+        <time datetime={post.published_at}>
+          {new Date(post.published_at).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+      </Text>
+      <Text
+        tag="h3"
+        variant="textBase"
+        class="font-medium text-base-900 mt-4"
+      >
+        <a href={`/blog/${post.slug}/`}>{post.title}</a>
+      </Text>
+    </header>
+    <Text
+      tag="p"
+      variant="textSM"
+      class="text-base-500 line-clamp-2 mt-1"
+    >
+      {post.excerpt}
+    </Text>
+  </article>
+</li>
+
