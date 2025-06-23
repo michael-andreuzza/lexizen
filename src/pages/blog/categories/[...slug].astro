@@ -6,26 +6,28 @@ import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Components
 import PostList from "@/components/blog/PostList.astro";
 // CMS
-import { SITE_TITLE } from "@/consts";
 import { cms } from "@/lib/cms";
+import { getMetaTitle, getMetaDescription } from "@/utils/meta";
+
 const { slug } = Astro.params;
-const { data: posts } = await cms.posts.list({
-  category: slug,
-});
-const { data: category } = await cms.categories.list();
-const currentCategory = category?.find((c) => c.slug === slug);
+const { data: posts } = await cms.posts.list({ category: slug });
+const { data: categories } = await cms.categories.list();
+const currentCategory = categories?.find((c) => c.slug === slug);
+
+const title = getMetaTitle(currentCategory?.name);
+const description = getMetaDescription(`All posts in the “${currentCategory?.name?.toLowerCase()}” category`);
 ---
 
 <!doctype html>
-<BaseHead title={SITE_TITLE} description={""} />
+<BaseHead title={title} description={description} />
 <section>
   <Wrapper variant="standard" class="py-24 lg:py-32">
     <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
       Blog / {currentCategory?.slug}
     </Text>
-    <Text tag="p" variant="textBase" class=" font-medium"
-      >{currentCategory?.name}</Text
-    >
+    <Text tag="p" variant="textBase" class="font-medium">
+      {currentCategory?.name}
+    </Text>
     <PostList posts={posts} />
   </Wrapper>
 </section>

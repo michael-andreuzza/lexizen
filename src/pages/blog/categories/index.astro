@@ -1,45 +1,43 @@
 ---
-import BaseHead from "@/components/fundations/head/BaseHead.astro";
-import Header from "@/components/global/Navigation.astro";
-import Footer from "@/components/global/Footer.astro";
-import { SITE_TITLE } from "@/consts";
+// CMS
 import { cms } from "@/lib/cms";
+// Foundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BaseHead from "@/components/fundations/head/BaseHead.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
 import CategoryLink from "@/components/blog/CategoryLink.astro";
+// Constants
+import { SITE_TITLE } from "@/consts";
 
 const { data: categories } = await cms.categories.list();
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead
-      title={`All Categories - ${SITE_TITLE}`}
-      description="A list of all blog categories on our site."
-    />
-  </head>
-  <body>
-    <Header />
-    <main class="max-w-7xl mx-auto my-12 px-2">
-      <section class="mb-12">
-        <div class="px-4">
-          <h1 class="font-medium text-lg text-orange-500">Blog Categories</h1>
-          <p class="text-3xl font-medium">All categories</p>
-        </div>
-        <div class="flex mt-12 flex-col gap-4 font-medium">
-          <ul>
-            {
-              categories?.map((category) => (
-                <li>
-                  <CategoryLink href={`/blog/categories/${category.slug}/`}>
-                    {category.name}
-                  </CategoryLink>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+<BaseHead
+  title={`All Categories - ${SITE_TITLE}`}
+  description="A list of all blog categories on our site."
+/>
+
+<BaseLayout>
+  <section>
+    <Wrapper variant="standard" class="py-24 lg:py-32">
+      <div class="px-4">
+        <h1 class="font-medium text-lg text-orange-500">Blog Categories</h1>
+        <p class="text-3xl font-medium">All categories</p>
+      </div>
+      <div class="flex mt-12 flex-col gap-4 font-medium">
+        <ul>
+          {
+            categories?.map((category) => (
+              <li>
+                <CategoryLink href={`/blog/categories/${category.slug}/`}>
+                  {category.name}
+                </CategoryLink>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Wrapper>
+  </section>
+</BaseLayout>

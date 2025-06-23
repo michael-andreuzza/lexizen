@@ -1,15 +1,18 @@
 ---
-import FormattedDate from "@/components/blog/FormattedDate.astro";
+// Assets
+import { Image } from "astro:assets";
+// Fundations
 import BlogLayout from "@/layouts/BlogLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Components
+import FormattedDate from "@/components/blog/FormattedDate.astro";
+// CMS
 import { cms } from "@/lib/cms";
-
 const slugParam = Astro.params.slug;
 if (!slugParam) throw new Error("Slug is required");
-
 const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
-
 let post;
-
 try {
   post = await cms.posts.get({ slug });
 } catch (err) {
@@ -17,27 +20,27 @@ try {
   post = null;
 }
 ---
-
 {
   post ? (
     <BlogLayout {...post.data}>
-      <div class="prose mx-auto m-4 p-4">
+      <div>
         {post.data.cover_image && (
-          <img
-            class="max-w-full"
-            width="700"
+          <Image
+            width={700}
+            height={360}
             src={post.data.cover_image}
             alt={post.data.title}
+            class="max-w-full"
           />
         )}
-        <h1 class="text-3xl font-medium">{post.data.title}</h1>
-        <p>
+        <Text tag="h1" variant="displaySM" class="font-medium text-base-900">{post.data.title}</Text>
+        <Text tag="p" variant="textBase" class="font-medium">
           <FormattedDate date={new Date(post.data.published_at)} />
-        </p>
-        <div set:html={post.data.html_content} />
+        </Text>
+        <Wrapper variant="prose" set:html={post.data.html_content} />
       </div>
     </BlogLayout>
   ) : (
-    <h1 class="text-center text-2xl mt-10 text-red-600">Post not found</h1>
+    <Text tag="h1" variant="displaySM" class="font-medium text-base-900">Post not found</Text>
   )
 }

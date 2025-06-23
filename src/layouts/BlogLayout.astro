@@ -1,5 +1,7 @@
 ---
+// Fundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 
 const {
   title = "Untitled Post",
@@ -7,8 +9,7 @@ const {
   image = "/blog-placeholder-1.jpg",
 } = Astro.props;
 ---
+
 <BaseLayout {title} {description} {image}>
-  <article class="prose mx-auto">
-    <slot />
-  </article>
+  <Wrapper variant="standard"> <slot /></Wrapper>
 </BaseLayout>
