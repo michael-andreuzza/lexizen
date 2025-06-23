@@ -18,15 +18,14 @@ const { data: categories } = await cms.categories.list();
   <Wrapper variant="standard" class="py-24 lg:py-32">
     <section>
       <div>
-        <Text
-          tag="h1"
-          variant="displaySM"
-          class="font-medium text-base-900 mt-4">Blog</Text
+        <Text tag="h1" variant="displaySM" class="font-medium text-base-900"
+          >Blog</Text
         >
         <Text
           tag="p"
           variant="textXS"
-          class="font-medium font-mono text-base-500">A blog about animals</Text
+          class="font-medium font-mono text-base-500 mt-2"
+          >A CMS blog for Zenblog by Lexington Themes</Text
         >
       </div>
       <div class="flex gap-px flex-wrap mt-4 font-medium">
@@ -55,7 +54,7 @@ const { data: categories } = await cms.categories.list();
                 ) : (
                   <div class="h-[360px] bg-base-50 " />
                 )}
-                <div class="space-y-2 px-2 mt-2">
+                <div class=" mt-2">
                   <Text
                     tag="p"
                     variant="textXS"
@@ -72,14 +71,14 @@ const { data: categories } = await cms.categories.list();
                   <Text
                     tag="h3"
                     variant="textBase"
-                    class="font-medium text-base-900 mt-1"
+                    class="font-medium text-base-900 mt-4"
                   >
                     {post.title}
                   </Text>
                   <Text
                     tag="p"
                     variant="textSM"
-                    class="text-base-500 line-clamp-2"
+                    class="text-base-500 line-clamp-2 mt-1"
                   >
                     {post.excerpt}
                   </Text>
