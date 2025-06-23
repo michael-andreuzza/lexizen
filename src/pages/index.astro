@@ -15,31 +15,25 @@ const { data: categories } = await cms.categories.list();
 <BaseLayout>
   <section>
     <Wrapper variant="standard" class="pt-24 lg:pt-32">
-      <Text tag="h1" variant="displaySM"> Welcome to Lexizen </Text>
+      <Text tag="h1" variant="displayMD" class="text-base-900 text-balance">
+        Welcome to Lexizen blog!
+      </Text>
     </Wrapper>
   </section>
   <section>
     <Wrapper variant="standard" class="py-12">
       <div class="grid grid-cols-1 md:grid-cols-2">
-        <Text tag="p" variant="textBase"> Read my blog </Text>
+        <Text tag="p" variant="textBase"> Latest on Lexizen </Text>
         <Button
           isLink={true}
           size="xs"
           variant="muted"
           href="/blog"
-          class="w-fit lg:ml-auto">See latest blog posts</Button
+          class="w-fit lg:ml-auto">See all blog posts</Button
         >
       </div>
-      <div class="flex gap-4 flex-wrap">
-        {
-          categories?.map((category) => (
-            <CategoryLink href={`/blog/categories/${category.slug}/`}>
-              {category.name}
-            </CategoryLink>
-          ))
-        }
-      </div>
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+
+      <ul class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
         {
           posts?.slice(0, 3).map((post) => (
             <li>
