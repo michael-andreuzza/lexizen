@@ -22,7 +22,7 @@ try {
 {
   post ? (
     <BlogLayout {...post.data}>
-      <div>
+      <Wrapper variant="narrow">
         <Text
           tag="p"
           variant="textXS"
@@ -43,7 +43,7 @@ try {
             height={360}
             src={post.data.cover_image}
             alt={post.data.title}
-            class="aspect-12/6 mt-4 w-full"
+            class="aspect-12/6 mt-4 w-full object-cover object-center"
           />
         )}
         <Wrapper
@@ -51,7 +51,7 @@ try {
           class="mt-12"
           set:html={post.data.html_content}
         />
-      </div>
+      </Wrapper>
     </BlogLayout>
   ) : (
     <Text tag="h1" variant="displaySM" class="font-medium text-base-900">

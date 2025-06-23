@@ -4,6 +4,7 @@ import { cms } from "@/lib/cms";
 // Foundations
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BaseHead from "@/components/fundations/head/BaseHead.astro";
+import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Components
 import CategoryLink from "@/components/blog/CategoryLink.astro";
@@ -17,13 +18,18 @@ const { data: categories } = await cms.categories.list();
   title={`All Categories - ${SITE_TITLE}`}
   description="A list of all blog categories on our site."
 />
-
 <BaseLayout>
   <section>
     <Wrapper variant="standard" class="py-24 lg:py-32">
       <div class="px-4">
-        <h1 class="font-medium text-lg text-orange-500">Blog Categories</h1>
-        <p class="text-3xl font-medium">All categories</p>
+        <Text tag="h1" variant="displaySM" class="text-base-900"
+          >Blog Categories</Text
+        >
+        <Text
+          tag="p"
+          variant="textXS"
+          class="font-medium font-mono text-base-500 mt-2">All categories</Text
+        >
       </div>
       <div class="flex mt-12 flex-col gap-4 font-medium">
         <ul>

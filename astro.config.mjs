@@ -9,8 +9,16 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+    },
+  },
   output: "server",
-  site: "https://example.com",
+  site: "https://yourdomain.com",
   integrations: [mdx(), sitemap()],
   adapter: netlify(),
 });

@@ -9,11 +9,11 @@ const { variant = "standard", class: extraClass = "" } = Astro.props;
 const variantClasses = {
   // All purpose wrapper
   standard: "max-w-7xl mx-auto px-8 w-full",
-  narrow: "max-w-4xl mx-auto",
+  narrow: "max-w-xl mx-auto",
 
   // Wrapper for prose blocks
   prose:
-    "prose-ul:text-zinc-500 prose prose-xs prose-headings:font-sans  max-w-3xl pt-0 mx-auto prose-a:text-black prose-p:text-zinc-500 prose-code:text-black prose-strong:text-black prose-ol:text-zinc-500 prose-headings:text-black prose-headings:text-base text-sm",
+    "prose-ul:text-zinc-500 prose prose-xs prose-headings:font-sans  max-w-3xl pt-0 mx-auto prose-a:text-black prose-p:text-zinc-500 prose-code:text-black prose-strong:text-black prose-ol:text-zinc-500 prose-headings:text-black prose-headings:text-base text-sm prose-pre:scrollbar-hide prose-pre:bg-base-100",
 };
 // Combine the classes for the specified variant with any extra classes
 const classes = `${variantClasses[variant]} ${extraClass}`.trim();

@@ -1,8 +1,13 @@
 ---
+// Fundations
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { SITE_TITLE } from "@/consts";
 ---
+
 <header>
-  <nav class="flex justify-between items-center py-5 px-10">
-    <h2 class="font-medium"><a href="/">{SITE_TITLE}</a></h2>
-  </nav>
+  <Wrapper class="py-4">
+    <nav class="flex justify-between items-center">
+      <h2 class="font-medium"><a href="/">{SITE_TITLE}</a></h2>
+    </nav>
+  </Wrapper>
 </header>
