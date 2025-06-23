@@ -1,12 +1,12 @@
 ---
 import type { Post } from "zenblog/types";
-import PostItem from "@/components/blog/PostItem.astro";
+import BlogCard from "@/components/blog/BlogCard.astro";
 interface Props {
   posts: Post[];
 }
 const { posts } = Astro.props;
 ---
 
-<ul class="grid grid-cols-1 md:grid-cols-3 gap-12">
-  {posts?.map((post) => <PostItem post={post} />)}
+<ul class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-12">
+  {posts?.map((post) => <BlogCard post={post} />)}
 </ul>
