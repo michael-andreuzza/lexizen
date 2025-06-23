@@ -6,3 +6,5 @@ if (!blogId) {
 export const cms = createZenblogClient({
     blogId,
 })
+
+console.log("ZENBLOG_BLOG_ID:", import.meta.env.ZENBLOG_BLOG_ID);

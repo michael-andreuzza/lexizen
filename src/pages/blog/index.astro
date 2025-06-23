@@ -1,79 +1,80 @@
 ---
-// Assets
-import { Image } from "astro:assets";
-// Fundatations
 import BaseHead from "@/components/fundations/head/BaseHead.astro";
-import Text from "@/components/fundations/elements/Text.astro";
-import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-// Components
-import CategoryLink from "@/components/blog/CategoryLink.astro";
-// CMS
+
 import { SITE_TITLE, SITE_DESCRIPTION } from "@/consts";
 import { cms } from "@/lib/cms";
-import BaseLayout from "@/layouts/BaseLayout.astro";
-// Blog
+import CategoryLink from "@/components/blog/CategoryLink.astro";
+
 const { data: posts } = await cms.posts.list();
 const { data: categories } = await cms.categories.list();
 ---
 
-<BaseLayout>
-  <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  <section>
-    <Wrapper variant="standard" class="py-24 lg:py-32">
-      <div>
-        <Text tag="h1" variant="displaySM" class="font-medium text-base-900"
-          >Articles and more</Text
-        >
-        <Text tag="p" variant="textSM" class="font-medium text-base-500"
-          >A blog about animals</Text
-        >
-      </div>
-      <div class="flex gap-px mt-4 font-medium">
-        {
-          categories?.map((category) => (
-            <CategoryLink href={`/blog/categories/${category.slug}/`}>
-              {category.name}
-            </CategoryLink>
-          ))
-        }
-      </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+   
+    <main class="max-w-7xl mx-auto my-12 px-2">
+      <section class="mb-12">
+        <div class="px-4">
+          <h1 class="font-medium text-lg text-orange-500">Blog</h1>
+          <p class="text-3xl font-medium">A blog about animals</p>
+        </div>
+        <div class="flex gap-px mt-4 font-medium">
+          {
+            categories?.map((category) => (
+              <CategoryLink href={`/blog/categories/${category.slug}/`}>
+                {category.name}
+              </CategoryLink>
+            ))
+          }
+        </div>
+      </section>
+      <section>
+        <ul class="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {
+            posts?.map((post) => (
+              <li>
+                <a href={`/blog/${post.slug}/`} class="block">
+                  {post.cover_image ? (
+                    <img
+                      width={720}
+                      height={360}
+                      src={post.cover_image}
+                      alt={post.title}
+                      class="rounded-2xl w-full max-h-[240px] object-cover aspect-[2/1]"
+                    />
+                  ) : (
+                    <div class="h-[360px] bg-slate-300 rounded-xl" />
+                  )}
+                  <div class="my-2 space-y-2 px-2">
+                    <div class="">
+                      <time
+                        class="text-neutral-500 text-sm"
+                        datetime={post.published_at}
+                      >
+                        {new Date(post.published_at).toLocaleDateString(
+                          "en-US",
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          }
+                        )}
+                      </time>
+                    </div>
+                    <h3 class="font-medium text-xl mt-4">{post.title}</h3>
+                    <p class="text-neutral-500 line-clamp-2">{post.excerpt}</p>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
 
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-12 mt-">
-        {
-          posts?.map((post) => (
-            <li class="relative">
-              <a href={`/blog/${post.slug}/`} class="absolute inset-0 z-10"></a>
-              {post.cover_image ? (
-                <Image
-                  width={720}
-                  height={360}
-                  src={post.cover_image}
-                  alt={post.title}
-                  class="rounded-xl w-full object-cover aspect-2/1"
-                />
-              ) : (
-                <div class="h-[360px] bg-slate-300 rounded-xl" />
-              )}
-              <div class="my-2 space-y-2 px-2">
-                <div class="">
-                  <time
-                    class="text-neutral-500 text-sm"
-                    datetime={post.published_at}
-                  >
-                    {new Date(post.published_at).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                </div>
-                <Text tag="h3" variant="textBase" class="font-medium mt-2">{post.title}</Text>
-                <Text tag="p" variant="textSM" class="text-neutral-500 line-clamp-2">{post.excerpt}</Text>
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-    </Wrapper>
-  </section>
-</BaseLayout>
+  </body>
+</html>
