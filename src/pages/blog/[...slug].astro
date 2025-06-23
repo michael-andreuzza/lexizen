@@ -1,6 +1,4 @@
 ---
-// Assets
-import { Image } from "astro:assets";
 // Fundations
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
@@ -20,27 +18,32 @@ try {
   post = null;
 }
 ---
+
 {
   post ? (
     <BlogLayout {...post.data}>
       <div>
+        <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
+          {post.data.title}
+        </Text>
+        <Text tag="p" variant="textBase" class="font-medium">
+          <FormattedDate date={new Date(post.data.published_at)} />
+        </Text>
         {post.data.cover_image && (
-          <Image
+          <img
             width={700}
             height={360}
             src={post.data.cover_image}
             alt={post.data.title}
-            class="max-w-full"
+            class="aspect-12/6 mt-4"
           />
         )}
-        <Text tag="h1" variant="displaySM" class="font-medium text-base-900">{post.data.title}</Text>
-        <Text tag="p" variant="textBase" class="font-medium">
-          <FormattedDate date={new Date(post.data.published_at)} />
-        </Text>
         <Wrapper variant="prose" set:html={post.data.html_content} />
       </div>
     </BlogLayout>
   ) : (
-    <Text tag="h1" variant="displaySM" class="font-medium text-base-900">Post not found</Text>
+    <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
+      Post not found
+    </Text>
   )
 }
