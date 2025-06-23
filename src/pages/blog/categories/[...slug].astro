@@ -13,15 +13,21 @@ const { data: posts } = await cms.posts.list({ category: slug });
 const { data: categories } = await cms.categories.list();
 const currentCategory = categories?.find((c) => c.slug === slug);
 const title = getMetaTitle(currentCategory?.name);
-const description = getMetaDescription(`All posts in the “${currentCategory?.name?.toLowerCase()}” category`);
+const description = getMetaDescription(
+  `All posts in the “${currentCategory?.name?.toLowerCase()}” category`
+);
 ---
+
 <BaseHead title={title} description={description} />
 <section>
   <Wrapper variant="standard" class="py-24 lg:py-32">
+    <Text tag="p" variant="textXS" class="textXS font-mono text-base-500">
+      {currentCategory?.slug}</Text
+    >
     <Text tag="h1" variant="displaySM" class="font-medium text-base-900">
-      Blog / {currentCategory?.slug}
+      Blog
     </Text>
-    <Text tag="p" variant="textBase" class="font-medium">
+    <Text tag="p" variant="textBase" class="font-medium text-base-500">
       {currentCategory?.name}
     </Text>
     <PostList posts={posts} />

@@ -1,6 +1,6 @@
 ---
+import Text from "@/components/fundations/elements/Text.astro";
 import type { Post } from "zenblog/types";
-
 interface Props {
   post: Post;
 }
@@ -17,14 +17,18 @@ const { post } = Astro.props;
           height={360}
           src={post.cover_image}
           alt={post.title}
-          class="rounded-2xl w-full max-h-[240px] object-cover aspect-2/1"
+          class=" w-full  object-cover aspect-12/6"
         />
       ) : (
-        <div class="h-[360px] bg-slate-300 rounded-xl" />
+        <div class="h-[360px] bg-base-50 " />
       )
     }
-    <div class="my-2 space-y-2 px-2">
-      <div class="">
+    <div class="my-2">
+      <Text
+        tag="p"
+        variant="textXS"
+        class="font-medium font-mono text-base-500"
+      >
         <time class="text-neutral-500 text-sm" datetime={post.published_at}>
           {
             new Date(post.published_at).toLocaleDateString("en-US", {
@@ -34,9 +38,13 @@ const { post } = Astro.props;
             })
           }
         </time>
-      </div>
-      <h3 class="font-medium text-xl mt-4">{post.title}</h3>
-      <p class="text-neutral-500 line-clamp-2">{post.excerpt}</p>
+      </Text>
+      <Text tag="h3" variant="textBase" class="font-medium text-base-900 mt-4"
+        >{post.title}</Text
+      >
+      <Text tag="p" variant="textSM" class="text-base-500 line-clamp-2 mt-1"
+        >{post.excerpt}</Text
+      >
     </div>
   </a>
 </li>
