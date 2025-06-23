@@ -8,12 +8,18 @@ import Navigation from "@/components/global/Navigation.astro";
 // Hides nav and footer on selected screens by passing
 // the hideNav and hideFooter props
 // <BaseLayout hideNav={true} hideFooter={true}>
-const { hideNav = false, hideFooter = false } = Astro.props;
+const {
+  hideNav = false,
+  hideFooter = false,
+  title = "Lexizen",
+  description = "A CMS blog for Zenblog by Lexington Themes",
+  image = "/blog-placeholder-1.jpg",
+} = Astro.props;
 ---
 
 <html lang="en" class="scroll-smooth">
   <head>
-    <BaseHead />
+    <BaseHead title={title} description={description} image={image} />
   </head>
   <body class="relative flex flex-col bg-secondary min-h-svh bg-base-50">
     {!hideNav && <Navigation />}

@@ -9,9 +9,12 @@ import BlogPost from "@/layouts/BlogPost.astro";
 import FormattedDate from "@/components/blog/FormattedDate.astro";
 // CMS
 import { cms } from "@/lib/cms";
+
 const slugParam = Astro.params.slug;
 if (!slugParam) throw new Error("Slug is required");
+
 const slug = Array.isArray(slugParam) ? slugParam.join("/") : slugParam;
+
 let post;
 try {
   post = await cms.posts.get({ slug });
@@ -23,7 +26,12 @@ try {
 
 {
   post ? (
-    <BlogPost {...post.data}>
+    <BlogPost
+      title={post.data.title}
+      description={post.data.excerpt ? post.data.excerpt : "No description available"}
+      image={post.data.cover_image}
+/>
+
       <div>
         <Text tag="p" variant="textXS" class="text-base-500 font-mono">
           <FormattedDate date={new Date(post.data.published_at)} />
