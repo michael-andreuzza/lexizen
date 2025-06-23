@@ -3,6 +3,8 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Grids
+import BlogCardsGrid from "@/components/fundations/grids/BlogCardsGrid.astro";
 // CMS
 import { cms } from "@/lib/cms";
 // Components
@@ -38,7 +40,7 @@ const { data: categories } = await cms.categories.list();
         }
       </div>
 
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+      <BlogCardsGrid class="mt-12">
         {
           posts?.map((post) => (
             <li>
@@ -87,7 +89,7 @@ const { data: categories } = await cms.categories.list();
             </li>
           ))
         }
-      </ul>
+      </BlogCardsGrid>
     </Wrapper>
   </section>
 </BaseLayout>

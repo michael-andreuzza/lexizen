@@ -31,19 +31,18 @@ const { data: categories } = await cms.categories.list();
           class="font-medium font-mono text-base-500 mt-2">All categories</Text
         >
       </div>
-      <div class="flex mt-12 flex-col gap-4 font-medium">
-        <ul>
-          {
-            categories?.map((category) => (
-              <li>
-                <CategoryLink href={`/blog/categories/${category.slug}/`}>
-                  {category.name}
-                </CategoryLink>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
+     
+      <ul>
+        {
+          categories?.map((category) => (
+            <li>
+              <CategoryLink href={`/blog/categories/${category.slug}/`}>
+                {category.name}
+              </CategoryLink>
+            </li>
+          ))
+        }
+      </ul>
     </Wrapper>
   </section>
 </BaseLayout>
